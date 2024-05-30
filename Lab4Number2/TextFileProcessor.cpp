@@ -53,7 +53,17 @@ void TextFileProcessor::appendToFile(int number) {
     }
 }
 
-void TextFileProcessor::processAndCreateNewFile() const {
+int TextFileProcessor::minNumber(const std::vector<int>& numbers) {
+    int minNumber = INT_MAX;
+    for (size_t i = 0; i < numbers.size(); ++i) {
+        if (numbers[i] < minNumber) {
+            minNumber = numbers[i];
+        }
+    }
+    return minNumber;
+}
+
+void TextFileProcessor::processAndCreateNewFile() {
     std::ifstream inputFile(m_filename);
 
     try {
@@ -67,14 +77,11 @@ void TextFileProcessor::processAndCreateNewFile() const {
         inputFile.close();
 
         if (numbers.empty()) { throw std::runtime_error("File " + m_filename + " is empty!"); }
-
-        int minNumber = *std::min_element(numbers.begin(), numbers.end());
-
         std::ofstream outputFile("new_" + m_filename);
         if (!outputFile.is_open()) { throw std::runtime_error("Unable to create new file: " + m_filename); }
 
         for (int num : numbers) {
-            outputFile << num / minNumber << std::endl;
+            outputFile << num / minNumber(numbers) << std::endl;
         }
         outputFile.close();
         std::cout << "New file created successfully" << std::endl;

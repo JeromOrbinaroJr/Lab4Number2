@@ -3,8 +3,8 @@
 #include "TextFileProcessor.h"
 
 int main() {
-    std::vector<int> numbers = { 10, 20, 30, 40, 50 }; // Example numbers
-    TextFileProcessor processor("input.txt");
+    std::vector<int> numbers = { 5, 20, 30, 40, 50 }; // Example numbers
+    TextFileProcessor processor("file.txt");
 
     // Create text file
     processor.createFile(numbers);

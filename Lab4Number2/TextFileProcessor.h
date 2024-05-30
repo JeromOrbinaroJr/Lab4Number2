@@ -11,7 +11,8 @@ public:
 	void createFile(const std::vector<int>& numbers);
 	void displayFile() const;
 	void appendToFile(int number);
-	void processAndCreateNewFile() const;
+	void processAndCreateNewFile();
+	int minNumber(const std::vector<int>&numbers);
 
 private:
 	std::string m_filename;
