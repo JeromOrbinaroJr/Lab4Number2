@@ -1,22 +1,27 @@
 #include <iostream>
-#include <vector>
 #include "TextFileProcessor.h"
 
 int main() {
-    std::vector<int> numbers = { 5, 20, 30, 40, 50 }; // Example numbers
     TextFileProcessor processor("file.txt");
 
-    // Create text file
-    processor.createFile(numbers);
-
     // Display content of text file
+    std::cout << "Original file content:" << std::endl;
     processor.displayFile();
 
     // Append new record to file
     processor.appendToFile(70);
 
+    // Display content of text file after appending
+    std::cout << "File content after appending:" << std::endl;
+    processor.displayFile();
+
     // Process and create new file
     processor.processAndCreateNewFile();
+
+    // Display content of the new text file
+    TextFileProcessor newProcessor("new_file.txt");
+    std::cout << "New file content:" << std::endl;
+    newProcessor.displayFile();
 
     return 0;
 }
