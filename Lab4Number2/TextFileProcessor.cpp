@@ -3,12 +3,14 @@
 #include <fstream>
 #include <algorithm>
 
+//Constructors
 TextFileProcessor::TextFileProcessor() : m_filename("file.txt") {}
 
 TextFileProcessor::TextFileProcessor(const std::string& filename) : m_filename(filename) {}
 
 TextFileProcessor::~TextFileProcessor() {}
 
+//Methods
 void TextFileProcessor::createFile(const std::vector<int>& numbers) {
     std::ofstream outputFile(m_filename);
     if (!outputFile.is_open()) {
@@ -19,6 +21,7 @@ void TextFileProcessor::createFile(const std::vector<int>& numbers) {
         outputFile << num << std::endl;
     }
     outputFile.close();
+
     std::cout << "File " << m_filename << " created successfully" << std::endl;
 }
 
@@ -42,13 +45,57 @@ void TextFileProcessor::appendToFile(int number) {
 
     outputFile << number << std::endl;
     outputFile.close();
-    std::cout << "Number " << number << " appended to file " << m_filename << std::endl;
+
+    std::cout << "\nNumber " << number << " appended to file " << m_filename << std::endl;
 }
 
 int TextFileProcessor::minNumber(const std::vector<int>& numbers) {
     return *std::min_element(numbers.begin(), numbers.end());
 }
 
+std::vector<int> TextFileProcessor::readFileToBuffer() const {
+    std::ifstream inputFile(m_filename);
+    std::vector<int> buffer;
+
+    if (!inputFile.is_open()) {
+        throw std::runtime_error("Unable to open file: " + m_filename);
+    }
+
+    int number;
+    while (inputFile >> number) {
+        buffer.push_back(number);
+    }
+    inputFile.close();
+
+    return buffer;
+}
+
+void TextFileProcessor::processAndWriteToNewFile() {
+    std::vector<int> buffer = readFileToBuffer();
+
+    if (buffer.empty()) {
+        throw std::runtime_error("File " + m_filename + " is empty!");
+    }
+
+    int minNum = minNumber(buffer);
+    std::vector<int> processedBuffer;
+
+    for (int num : buffer) {
+        processedBuffer.push_back(num / minNum);
+    }
+
+    std::ofstream outputFile("new_" + m_filename);
+    if (!outputFile.is_open()) {
+        throw std::runtime_error("Unable to open file: new_" + m_filename);
+    }
+
+    for (int num : processedBuffer) {
+        outputFile << num << std::endl;
+    }
+    outputFile.close();
+
+    std::cout << "\nNew file created successfully" << std::endl;
+}
 
 //void TextFileProcessor::processAndCreateNewFile() {
 //    std::ifstream inputFile(m_filename);
@@ -77,53 +124,34 @@ int TextFileProcessor::minNumber(const std::vector<int>& numbers) {
 //        std::cout << "Error: " << ex.what() << std::endl;
 //    }
 //}
-
-
-std::vector<int> TextFileProcessor::readFileToBuffer() const {
-    std::ifstream inputFile(m_filename);
-    std::vector<int> buffer;
-
-    if (!inputFile.is_open()) {
-        throw std::runtime_error("Unable to open file: " + m_filename);
-    }
-
-    int number;
-    while (inputFile >> number) {
-        buffer.push_back(number);
-    }
-    inputFile.close();
-
-    return buffer;
-}
-
-void TextFileProcessor::writeBufferToFile(const std::vector<int>& buffer, const std::string& filename) const {
-    std::ofstream outputFile(filename);
-
-    if (!outputFile.is_open()) {
-        throw std::runtime_error("Unable to open file: " + filename);
-    }
-
-    for (int num : buffer) {
-        outputFile << num << std::endl;
-    }
-    outputFile.close();
-}
-
-void TextFileProcessor::processAndCreateNewFile() {
-    std::vector<int> buffer = readFileToBuffer();
-
-    if (buffer.empty()) {
-        std::cerr << "Error: File " << m_filename << " is empty!" << std::endl;
-        return;
-    }
-
-    int minNum = minNumber(buffer);
-    std::vector<int> processedBuffer;
-
-    for (int num : buffer) {
-        processedBuffer.push_back(num / minNum);
-    }
-
-    writeBufferToFile(processedBuffer, "new_" + m_filename);
-    std::cout << "New file created successfully" << std::endl;
-}
+//void TextFileProcessor::writeBufferToFile(const std::vector<int>& buffer, const std::string& filename) const {
+//    std::ofstream outputFile(filename);
+//
+//    if (!outputFile.is_open()) {
+//        throw std::runtime_error("Unable to open file: " + filename);
+//    }
+//
+//    for (int num : buffer) {
+//        outputFile << num << std::endl;
+//    }
+//    outputFile.close();
+//}
+//
+//void TextFileProcessor::processAndCreateNewFile() {
+//    std::vector<int> buffer = readFileToBuffer();
+//
+//    if (buffer.empty()) {
+//        std::cerr << "Error: File " << m_filename << " is empty!" << std::endl;
+//        return;
+//    }
+//
+//    int minNum = minNumber(buffer);
+//    std::vector<int> processedBuffer;
+//
+//    for (int num : buffer) {
+//        processedBuffer.push_back(num / minNum);
+//    }
+//
+//    writeBufferToFile(processedBuffer, "new_" + m_filename);
+//    std::cout << "New file created successfully" << std::endl;
+//}
