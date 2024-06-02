@@ -129,9 +129,11 @@
   <ItemGroup>
     <ClCompile Include="TextFileProcessor.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TextFileProcessorTemplate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextFileProcessor.h" />
+    <ClInclude Include="TextFileProcessorTemplate.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

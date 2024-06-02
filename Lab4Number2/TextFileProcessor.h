@@ -15,7 +15,7 @@ public:
 	void appendToFile(int number);
 	int minNumber(const std::vector<int>& numbers);
 	void processAndWriteToNewFile();
-	std::vector<int> readFileToBuffer() const;
+	std::vector<int> readNumbersToBuffer() const;
 
 private:
 	std::string m_filename;

@@ -53,7 +53,7 @@ int TextFileProcessor::minNumber(const std::vector<int>& numbers) {
     return *std::min_element(numbers.begin(), numbers.end());
 }
 
-std::vector<int> TextFileProcessor::readFileToBuffer() const {
+std::vector<int> TextFileProcessor::readNumbersToBuffer() const {
     std::ifstream inputFile(m_filename);
     std::vector<int> buffer;
 
@@ -71,7 +71,7 @@ std::vector<int> TextFileProcessor::readFileToBuffer() const {
 }
 
 void TextFileProcessor::processAndWriteToNewFile() {
-    std::vector<int> buffer = readFileToBuffer();
+    std::vector<int> buffer = readNumbersToBuffer();
 
     if (buffer.empty()) {
         throw std::runtime_error("File " + m_filename + " is empty!");

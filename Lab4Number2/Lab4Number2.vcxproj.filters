@@ -21,9 +21,15 @@
     <ClCompile Include="TextFileProcessor.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="TextFileProcessorTemplate.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextFileProcessor.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="TextFileProcessorTemplate.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
