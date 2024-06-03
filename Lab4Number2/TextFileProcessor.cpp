@@ -69,7 +69,6 @@ void TextFileProcessor::processAndWriteToNewFile() {
 
     int minNum = minNumber(buffer);
     if (minNum == 0) { throw std::runtime_error("Can't divide by zero"); }
-    //std::vector<int> processedBuffer;
 
     for (int& num : buffer) {
         num = num / minNum;
