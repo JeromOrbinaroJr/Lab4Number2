@@ -5,24 +5,9 @@
 
 //Constructors
 TextFileProcessor::TextFileProcessor() : m_filename("file.txt") {}
-
 TextFileProcessor::TextFileProcessor(const std::string& filename) : m_filename(filename) {}
 
-TextFileProcessor::~TextFileProcessor() {}
-
 //Methods
-void TextFileProcessor::createFile(const std::vector<int>& numbers) {
-    std::ofstream outputFile(m_filename);
-    if (!outputFile.is_open()) { throw std::runtime_error("Unable to open file: " + m_filename); }
-
-    for (int num : numbers) {
-        outputFile << num << std::endl;
-    }
-    outputFile.close();
-
-    std::cout << "File " << m_filename << " created successfully" << std::endl;
-}
-
 void TextFileProcessor::displayFile() const {
     std::ifstream inputFile(m_filename);
     if (!inputFile.is_open()) { throw std::runtime_error("Unable to open file: " + m_filename); }
@@ -142,4 +127,16 @@ void TextFileProcessor::processAndWriteToNewFile() {
 //
 //    writeBufferToFile(processedBuffer, "new_" + m_filename);
 //    std::cout << "New file created successfully" << std::endl;
+//}
+
+//void TextFileProcessor::createFile(const std::vector<int>& numbers) {
+//    std::ofstream outputFile(m_filename);
+//    if (!outputFile.is_open()) { throw std::runtime_error("Unable to open file: " + m_filename); }
+//
+//    for (int num : numbers) {
+//        outputFile << num << std::endl;
+//    }
+//    outputFile.close();
+//
+//    std::cout << "File " << m_filename << " created successfully" << std::endl;
 //}

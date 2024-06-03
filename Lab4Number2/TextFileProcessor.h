@@ -7,10 +7,9 @@ public:
 	//Constructors
 	TextFileProcessor();
 	TextFileProcessor(const std::string& filename);
-	~TextFileProcessor();
+	~TextFileProcessor() = default;
 
 	//Methods
-	void createFile(const std::vector<int>& numbers);
 	void displayFile() const;
 	void appendToFile(int number);
 	int minNumber(const std::vector<int>& numbers);
@@ -23,3 +22,4 @@ private:
 
 //void processAndCreateNewFile();
 //void writeBufferToFile(const std::vector<int>& buffer, const std::string& filename) const;
+//void createFile(const std::vector<int>& numbers);
