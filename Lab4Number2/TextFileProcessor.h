@@ -14,8 +14,8 @@ public:
 	void displayFile() const;
 	void appendToFile(int number);
 	int minNumber(const std::vector<int>& numbers);
-	void processAndWriteToNewFile();
 	std::vector<int> readNumbersToBuffer() const;
+	void processAndWriteToNewFile();
 
 private:
 	std::string m_filename;

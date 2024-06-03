@@ -87,10 +87,9 @@ void TextFileProcessor<T>::processAndWriteToNewFile() {
     }
 
     T minNum = minNumber(buffer);
-    std::vector<T> processedBuffer;
 
-    for (T num : buffer) {
-        processedBuffer.push_back(num / minNum);
+    for (T& num : buffer) {
+        num = num / minNum;
     }
 
     std::ofstream outputFile("new_" + m_filename);
@@ -98,7 +97,7 @@ void TextFileProcessor<T>::processAndWriteToNewFile() {
         throw std::runtime_error("Unable to open file: new_" + m_filename);
     }
 
-    for (T num : processedBuffer) {
+    for (T num : buffer) {
         outputFile << num << std::endl;
     }
     outputFile.close();

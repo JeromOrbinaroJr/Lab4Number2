@@ -13,9 +13,7 @@ TextFileProcessor::~TextFileProcessor() {}
 //Methods
 void TextFileProcessor::createFile(const std::vector<int>& numbers) {
     std::ofstream outputFile(m_filename);
-    if (!outputFile.is_open()) {
-        throw std::runtime_error("Unable to open file: " + m_filename);
-    }
+    if (!outputFile.is_open()) { throw std::runtime_error("Unable to open file: " + m_filename); }
 
     for (int num : numbers) {
         outputFile << num << std::endl;
@@ -27,9 +25,7 @@ void TextFileProcessor::createFile(const std::vector<int>& numbers) {
 
 void TextFileProcessor::displayFile() const {
     std::ifstream inputFile(m_filename);
-    if (!inputFile.is_open()) {
-        throw std::runtime_error("Unable to open file: " + m_filename);
-    }
+    if (!inputFile.is_open()) { throw std::runtime_error("Unable to open file: " + m_filename); }
     std::string line;
     while (std::getline(inputFile, line)) {
         std::cout << line << std::endl;
@@ -39,9 +35,7 @@ void TextFileProcessor::displayFile() const {
 
 void TextFileProcessor::appendToFile(int number) {
     std::ofstream outputFile(m_filename, std::ofstream::app);
-    if (!outputFile.is_open()) {
-        throw std::runtime_error("Unable to open file: " + m_filename);
-    }
+    if (!outputFile.is_open()) { throw std::runtime_error("Unable to open file: " + m_filename); }
 
     outputFile << number << std::endl;
     outputFile.close();
@@ -57,9 +51,7 @@ std::vector<int> TextFileProcessor::readNumbersToBuffer() const {
     std::ifstream inputFile(m_filename);
     std::vector<int> buffer;
 
-    if (!inputFile.is_open()) {
-        throw std::runtime_error("Unable to open file: " + m_filename);
-    }
+    if (!inputFile.is_open()) { throw std::runtime_error("Unable to open file: " + m_filename); }
 
     int number;
     while (inputFile >> number) {
@@ -73,23 +65,20 @@ std::vector<int> TextFileProcessor::readNumbersToBuffer() const {
 void TextFileProcessor::processAndWriteToNewFile() {
     std::vector<int> buffer = readNumbersToBuffer();
 
-    if (buffer.empty()) {
-        throw std::runtime_error("File " + m_filename + " is empty!");
-    }
+    if (buffer.empty()) { throw std::runtime_error("File " + m_filename + " is empty!"); }
 
     int minNum = minNumber(buffer);
-    std::vector<int> processedBuffer;
+    if (minNum == 0) { throw std::runtime_error("Can't divide by zero"); }
+    //std::vector<int> processedBuffer;
 
-    for (int num : buffer) {
-        processedBuffer.push_back(num / minNum);
+    for (int& num : buffer) {
+        num = num / minNum;
     }
 
     std::ofstream outputFile("new_" + m_filename);
-    if (!outputFile.is_open()) {
-        throw std::runtime_error("Unable to open file: new_" + m_filename);
-    }
+    if (!outputFile.is_open()) { throw std::runtime_error("Unable to open file: new_" + m_filename); }
 
-    for (int num : processedBuffer) {
+    for (int num : buffer) {
         outputFile << num << std::endl;
     }
     outputFile.close();
